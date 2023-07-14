@@ -1,10 +1,10 @@
 const { User } = require('../models');
+const { validateUserValues } = require('./validationsInputValues');
 
 const getByUserEmail = async (email, password) => {
 	const user = await User.findOne({ where: { email } });
-	if (!user || password !== user.password ) {
-		return { status: 'BAD_REQUEST', data: { message: "Invalid fields"} };
-	}
+	const error = validateUserValues(user, password);
+	if (error) return error;
 	return { status: 'SUCCESSFUL', data: user };
 };
 
