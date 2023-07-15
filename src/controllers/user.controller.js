@@ -13,7 +13,7 @@ const createUser = async (req, res) => {
 };
 
 const getAllUsers = async (_req, res) => {
-  const { status, data } = await userService.getAllUsers();
+  const { status, data } = await userService.getAllUsersWithoutPassword();
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
