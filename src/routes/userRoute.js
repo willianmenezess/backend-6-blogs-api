@@ -5,5 +5,6 @@ const { validateJWT } = require('../middlewares/validateJWT');
 
 userRoute.post('/', validationsInput.validateLogin, userController.createUser);
 userRoute.get('/', validateJWT, userController.getAllUsers);
+userRoute.get('/:id', validateJWT, userController.getUserById);
 
 module.exports = userRoute;
