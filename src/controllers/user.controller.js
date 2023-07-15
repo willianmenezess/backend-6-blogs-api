@@ -20,7 +20,6 @@ const getAllUsers = async (_req, res) => {
 const getUserById = async (req, res) => {
   const { id } = req.params;
   const { status, data } = await userService.getUserById(id);
-  // const { password: _, ...userWithoutPassword } = data.dataValues;
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
