@@ -9,7 +9,7 @@ const handleLogin = async (req, res) => {
 	if (status === 'BAD_REQUEST') return res.status(mapStatusHTTP(status)).json(data);
 	
   const { password: _, ...userWithoutPassword } = req.body;
-	const payload = { user: userWithoutPassword };
+  const payload = { user: userWithoutPassword };
 	const token = createToken(payload);
 	return res.status(mapStatusHTTP(status)).json({ token });
 };

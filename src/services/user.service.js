@@ -26,4 +26,5 @@ const createUser = async (userData) => {
 module.exports = {
 	getByUserEmail,
 	createUser,
+	getAllUsers,
 };
