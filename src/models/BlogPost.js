@@ -21,7 +21,7 @@ const BlogPostSchema = (sequelize, DataTypes) => {
 			// field: 'updated',
 		}
 	}, {
-		timestamps: true,
+		timestamps: false,
 		underscored: true,
 		tableName: 'blog_posts',
 	});

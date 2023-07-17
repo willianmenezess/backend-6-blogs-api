@@ -1,6 +1,5 @@
 const { getPayload } = require('../auth/authorizFunctions');
 const { userService } = require('../services');
-// const mapStatusHTTP = require('../utils/mapStatusHTTP');
 
 function extractToken(bearerToken) {
   return bearerToken.split(' ')[1];
