@@ -12,13 +12,13 @@ const BlogPostSchema = (sequelize, DataTypes) => {
 			type: DataTypes.INTEGER,
 			foreignKey: true,
 		},
-		createdAt: {
+		published: {
 			type: DataTypes.DATE,
-			field: 'published',
+			// field: 'published',
 		},
-		updatedAt: {
+		updated: {
 			type: DataTypes.DATE,
-			field: 'updated',
+			// field: 'updated',
 		}
 	}, {
 		timestamps: true,
