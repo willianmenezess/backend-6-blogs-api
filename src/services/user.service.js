@@ -28,10 +28,14 @@ const createUser = async (userData) => {
 };
 
 const getUserById = async (id) => {
-  // buscar um usuário por ID e retornar os dados dele, exceto a senha
   const user = await User.findByPk(id, { attributes: { exclude: ['password'] } });
   if (!user) return { status: 'NOT_FOUND', data: { message: 'User does not exist' } };
   return { status: 'SUCCESSFUL', data: user };
+};
+
+const getUserByEmail = async (email) => {
+  const userFromDB = await User.findOne({ where: { email } });
+  return userFromDB;
 };
 
 module.exports = {
@@ -40,4 +44,5 @@ module.exports = {
   getAllUsers,
   getAllUsersWithoutPassword,
   getUserById,
+  getUserByEmail,
 };

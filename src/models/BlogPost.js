@@ -14,11 +14,9 @@ const BlogPostSchema = (sequelize, DataTypes) => {
 		},
 		published: {
 			type: DataTypes.DATE,
-			// field: 'published',
 		},
 		updated: {
 			type: DataTypes.DATE,
-			// field: 'updated',
 		}
 	}, {
 		timestamps: false,
