@@ -14,7 +14,26 @@ const validateCreateCategory = (req, res, next) => {
   next();
 };
 
+const validateCreatePost1 = (req, res, next) => {
+  const { title, content, categoryIds } = req.body;
+  console.log('MIDDLEWARE AQUI:', title, content, categoryIds);
+  if (!title || !content || !categoryIds) {
+    return res.status(400).json({ message: 'Some required fields are missing' });
+  }
+  next();
+};
+
+// const validateCreatePost2 = (req, res, next) => {
+//   const { title, content, categoryIds } = req.body;
+//   if (title === '' || content === '' || categoryIds === []) {
+//     return res.status(400).json({ message: 'Some required fields are missing' });
+//   }
+//   next();
+// };
+
 module.exports = {
   validateLogin,
   validateCreateCategory,
+  validateCreatePost1,
+  // validateCreatePost2,
 };

@@ -1,6 +1,10 @@
 const { BlogPost, PostCategory, User, Category, sequelize } = require('../models');
+const { validateCategoryIds } = require('./validationsInputValues');
 
 const createBlogPostAndPostCategories = async (title, content, userId, categoryIds) => {
+  const allCategories = await Category.findAll();
+  const error = validateCategoryIds(categoryIds, allCategories);
+  if (error) return error;
   const data = new Date();
   const result = await sequelize.transaction(async (t) => {
     const blogPost = await BlogPost

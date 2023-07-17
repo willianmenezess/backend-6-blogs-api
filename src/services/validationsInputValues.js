@@ -19,7 +19,19 @@ const validateCreateUser = (userData, allUsers) => {
   return false;
 };
 
+const validateCategoryIds = (categoryIds, allCategories) => {
+  const categoryIdsExists = categoryIds.every((categoryId) => {
+    const categoryFound = allCategories.find((category) => category.id === categoryId);
+    return categoryFound;
+  });
+  if (!categoryIdsExists) {
+    return { status: 'BAD_REQUEST', data: { message: 'one or more "categoryIds" not found' } };
+  }
+  return false;
+};
+
 module.exports = {
   validateUserValues,
   validateCreateUser,
+  validateCategoryIds,
 };
