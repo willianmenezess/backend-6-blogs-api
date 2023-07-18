@@ -16,8 +16,15 @@ const validateCreateCategory = (req, res, next) => {
 
 const validateCreatePost = (req, res, next) => {
   const { title, content, categoryIds } = req.body;
-  console.log('MIDDLEWARE AQUI:', title, content, categoryIds);
   if (!title || !content || !categoryIds) {
+    return res.status(400).json({ message: 'Some required fields are missing' });
+  }
+  next();
+};
+
+const validateUpdatePost = (req, res, next) => {
+  const { title, content } = req.body;
+  if (!title || !content) {
     return res.status(400).json({ message: 'Some required fields are missing' });
   }
   next();
@@ -27,4 +34,5 @@ module.exports = {
   validateLogin,
   validateCreateCategory,
   validateCreatePost,
+  validateUpdatePost,
 };
