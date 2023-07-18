@@ -65,9 +65,19 @@ const updatePost = async (id, title, content, userIdLogged) => {
   return { status: 'SUCCESSFUL', data: getUpdatedPost.data };
 };
 
+const deletePost = async (id, userIdLogged) => {
+  const blogPostExist = await BlogPost.findByPk(id);
+  if (!blogPostExist) return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+  const error = await authorizedUpdate(id, userIdLogged);
+  if (error) return error;
+  await BlogPost.destroy({ where: { id } });
+  return { status: 'DELETED', data: '' };
+};
+
 module.exports = { 
   createBlogPostAndPostCategories,
   allPostsWithUserAndCategories,
   getPostByPk,
   updatePost,
+  deletePost,
 };

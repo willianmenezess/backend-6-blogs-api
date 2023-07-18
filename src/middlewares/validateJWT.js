@@ -13,7 +13,7 @@ const validateJWT = async (req, res, next) => {
         message: 'Token not found',
       });
     }
-    const token = extractToken(authorization);
+    const token = extractToken(authorization) || authorization;
     const payload = getPayload(token);
     const { data } = await userService.getAllUsers();
     const userExists = data.some((userDB) => userDB.email === payload.user.email);
@@ -26,6 +26,7 @@ const validateJWT = async (req, res, next) => {
   }
 };
 
+// Com o Pipe (||) da linha 16, essa função se torna desnecessária.
 const validateJWTwithoutBaerer = async (req, res, next) => {
   try {
     const { authorization } = req.headers;

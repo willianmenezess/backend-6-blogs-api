@@ -34,9 +34,17 @@ const updatePost = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+  const userId = await userIdLogged(req);
+  const { status, data } = await blogPostService.deletePost(id, userId);
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   createBlogPostAndPostCategories,
   allPostsWithUserAndCategories,
   getPostByPk,
   updatePost,
+  deletePost,
 };

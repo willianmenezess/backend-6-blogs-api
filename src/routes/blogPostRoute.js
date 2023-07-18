@@ -16,4 +16,6 @@ blogPostRoute.get('/:id', validateJWT.validateJWT, blogPostController.getPostByP
 
 blogPostRoute.put('/:id', arrayValidations2, blogPostController.updatePost);
 
+blogPostRoute.delete('/:id', validateJWT.validateJWT, blogPostController.deletePost);
+
 module.exports = blogPostRoute;
