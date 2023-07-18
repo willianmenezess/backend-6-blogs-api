@@ -29,7 +29,19 @@ const allPostsWithUserAndCategories = async () => {
   return { status: 'SUCCESSFUL', data: blogPosts };
 };
 
+const getPostByPk = async (id) => {
+  const blogPost = await BlogPost.findByPk(id, {
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  if (!blogPost) return { status: 'NOT_FOUND', data: { message: 'Post does not exist' } };
+  return { status: 'SUCCESSFUL', data: blogPost };
+};
+
 module.exports = { 
   createBlogPostAndPostCategories,
   allPostsWithUserAndCategories,
+  getPostByPk,
 };

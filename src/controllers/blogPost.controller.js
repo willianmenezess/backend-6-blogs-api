@@ -15,7 +15,14 @@ const allPostsWithUserAndCategories = async (_req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const getPostByPk = async (req, res) => {
+  const { id } = req.params;
+  const { status, data } = await blogPostService.getPostByPk(id);
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   createBlogPostAndPostCategories,
   allPostsWithUserAndCategories,
+  getPostByPk,
 };
