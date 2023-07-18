@@ -2,6 +2,12 @@ const { userService } = require('../services');
 const mapStatusHTTP = require('../utils/mapStatusHTTP');
 const { createToken } = require('../auth/authorizFunctions');
 
+const userIdLogged = async (req, _res) => {
+  const { user } = req.payload;
+  const { dataValues } = await userService.getUserByEmail(user.email);
+  return dataValues.id;
+};
+
 const createUser = async (req, res) => {
   const userData = req.body;
   const { status, data } = await userService.createUser(userData);
@@ -23,8 +29,15 @@ const getUserById = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const deleteUserLogged = async (req, res) => {
+  const getUserId = await userIdLogged(req);
+  const { status } = await userService.deleteUserLogged(getUserId);
+  return res.status(mapStatusHTTP(status)).json();
+};
+
 module.exports = {
   createUser,
   getAllUsers,
   getUserById,
+  deleteUserLogged,
 };

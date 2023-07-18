@@ -38,6 +38,11 @@ const getUserByEmail = async (email) => {
   return userFromDB;
 };
 
+const deleteUserLogged = async (id) => {
+  await User.destroy({ where: { id } });
+  return { status: 'DELETED', data: '' };
+};
+
 module.exports = {
   getByUserEmail,
   createUser,
@@ -45,4 +50,5 @@ module.exports = {
   getAllUsersWithoutPassword,
   getUserById,
   getUserByEmail,
+  deleteUserLogged,
 };
