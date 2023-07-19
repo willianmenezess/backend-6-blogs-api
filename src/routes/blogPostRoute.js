@@ -12,6 +12,8 @@ blogPostRoute.get('/', validateJWT.validateJWT, blogPostController.allPostsWithU
 blogPostRoute.post('/', arrayValidations1, blogPostController
 .createBlogPostAndPostCategories);
 
+blogPostRoute.get('/search', validateJWT.validateJWT, blogPostController.getPostByTherm);
+
 blogPostRoute.get('/:id', validateJWT.validateJWT, blogPostController.getPostByPk);
 
 blogPostRoute.put('/:id', arrayValidations2, blogPostController.updatePost);

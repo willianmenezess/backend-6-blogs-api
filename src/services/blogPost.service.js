@@ -1,5 +1,6 @@
+const { Op } = require('sequelize');
 const { BlogPost, PostCategory, User, Category, sequelize } = require('../models');
-const { validateCategoryIds } = require('./validationsInputValues');
+const { validateCategoryIds, validateSearchTherm } = require('./validationsInputValues');
 
 const createBlogPostAndPostCategories = async (title, content, userId, categoryIds) => {
   const allCategories = await Category.findAll();
@@ -74,10 +75,29 @@ const deletePost = async (id, userIdLogged) => {
   return { status: 'DELETED', data: '' };
 };
 
+const getPostByTherm = async (therm) => {
+  const allPosts = await allPostsWithUserAndCategories();
+  const error = validateSearchTherm(therm, allPosts.data);
+  if (error) return error;
+  const blogPost = await BlogPost.findAll({
+    where: { 
+      [Op.or]: [
+      { title: { [Op.like]: `%${therm}%` } },
+      { content: { [Op.like]: `%${therm}%` } },
+    ] },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+  return { status: 'SUCCESSFUL', data: blogPost };
+};
+
 module.exports = { 
   createBlogPostAndPostCategories,
   allPostsWithUserAndCategories,
   getPostByPk,
   updatePost,
   deletePost,
+  getPostByTherm,
 };

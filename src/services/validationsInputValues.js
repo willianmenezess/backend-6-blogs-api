@@ -30,8 +30,16 @@ const validateCategoryIds = (categoryIds, allCategories) => {
   return false;
 };
 
+const validateSearchTherm = (searchTerm, allPosts) => {
+  if (!searchTerm || searchTerm === '') {
+    return { status: 'SUCCESSFUL', data: allPosts };
+  }
+  return false;
+};
+
 module.exports = {
   validateUserValues,
   validateCreateUser,
   validateCategoryIds,
+  validateSearchTherm,
 };

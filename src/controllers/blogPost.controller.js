@@ -41,10 +41,17 @@ const deletePost = async (req, res) => {
   return res.status(mapStatusHTTP(status)).json(data);
 };
 
+const getPostByTherm = async (req, res) => {
+  const searchTherm = req.query.q;
+  const { status, data } = await blogPostService.getPostByTherm(searchTherm);
+  return res.status(mapStatusHTTP(status)).json(data);
+};
+
 module.exports = {
   createBlogPostAndPostCategories,
   allPostsWithUserAndCategories,
   getPostByPk,
   updatePost,
   deletePost,
+  getPostByTherm,
 };
